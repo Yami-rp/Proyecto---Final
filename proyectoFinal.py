@@ -1,26 +1,52 @@
 import random
+# lista predefinida de nombres y apellidos
+nombres = ["Marcos", "Liliana", "Pedro", "Daniela", "Javier", "Carmen"]
 
-def generar_nombre(Nombres =None,  apellidos =None ):
-    nombresPredeterminados = ["Sofia", "Flor", "Rebeca", "Dinora", "Diana", "Natalia", "Marisol"] 
-    apellidosPredeterminados = ["Martinez", "Miranda", "Moran", "Hernandez", "Gonzales", "Santos","Mejia"]
+apellidos =["Toledo", "Gonzales", "Rodríguez", "Mejía", "Linares", "Pineda"]
 
-    if nombres is None:
-        nombres = nombresPredeterminados
-    if apellidos is None:
-        apellidos = apellidosPredeterminados
-    nombre = random.choice(Nombres)
-    apellido = random.choice(apellidos)
-    return f"{nombre} {apellido}"
- 
-def agregar_nombres_personalizados():
-    nombres_personalizados= input("Ingresa nombres personalizados  separandolos por una coma").split(",")
-    apellidos_personalizados= input(" Ingresa apellidos personalizados separandolos por una coma").split(",")
-    return[nombre.strip() for nombre in nombres_personalizados], [apellidos.strip() for apellidos in apellidos_personalizados]
-if __name__ == "__main__":
-    option = input("¿Quisieras usar nombres personalizados? (s/n): ").strip().lower()
-    if option == "s":
-       nombres, apellidos = agregar_nombres_personalizados() 
+def agregar_nombre():
+    nuevo_nombre= input("Ingrese un nombre nuevo (o presione Enter para omitir):").strip()
+    if nuevo_nombre:
+        nombres.append(nuevo_nombre)
+        print(f"Nombre '{nuevo_nombre}' agregado correctamente")
+
+def agregar_apellido():
+    nuevo_apellido = input( "Ingrese un nuevo apellido(o presione Enter para omitir):").strip()
+    if nuevo_apellido:
+        apellidos.append(nuevo_apellido)
+        print(f"Apellido '{nuevo_apellido}' agregado correctamente")
+
+def generar_nombre():
+    return f"{random.choice(nombres)}{random.choice(apellidos)}"
+
+def generar_multiples_nombres(cantidad):
+    return [generar_nombre()for _ in range(cantidad)]
+
+# menú 
+while True:
+    print("\n--- Generador de nombres aleatorios---")
+    print("1. Agregar un nombre personalizado")
+    print("2. Agregar un apellido personalizado")
+    print("3. Generar un nombre aleatorio")
+    print("4. Generar multiples nombres aleatorios")
+    print("5. Salir")
+    opcion = input("Seleccione una opcion: ").strip()
+    if opcion == "1":
+        agregar_nombre()
+    elif opcion =="2":
+        agregar_apellido()
+    elif opcion == "3":
+        print("\nNombre generado:", generar_nombre())
+    elif opcion == "4":
+        cantidad = int(input("¿Cuántos nombres quieres generar?"))
+        print("\nNombres generados:")
+        for nombre in generar_multiples_nombres(cantidad):
+         print ("-", nombre)
+    elif opcion == "5":
+        print("Saliendo del programa...")
+        break
     else:
-        nombres, apellidos = None, None
+        print("Opcion no valida. Favor intentarlo de nuevo.")
 
-        print("Nonmbre creado:", generar_nombre(nombres, apellidos))
+
+    
